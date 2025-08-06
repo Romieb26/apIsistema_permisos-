@@ -9,3 +9,4 @@ type IDocente interface {
 	GetById(id int32) (*entities.Docente, error)
 	GetAll() ([]entities.Docente, error)
 }
+//INTERFACE IDOCENTE 
