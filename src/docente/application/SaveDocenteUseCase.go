@@ -4,19 +4,23 @@ import (
 	"github.com/Romieb26/ApIsistema_permisos/src/docente/domain"
 	"github.com/Romieb26/ApIsistema_permisos/src/docente/domain/entities"
 )
-
 type SaveDocenteUseCase struct {
-	repo domain.IDocente
+	Repository domain.IDocente
 }
 
 func NewSaveDocenteUseCase(repo domain.IDocente) *SaveDocenteUseCase {
-	return &SaveDocenteUseCase{repo: repo}
+	return &SaveDocenteUseCase{
+		Repository: repo,
+	}
 }
 
-func (uc *SaveDocenteUseCase) Run(docente *entities.Docente) (*entities.Docente, error) {
-	err := uc.repo.Save(docente)
-	if err != nil {
-		return nil, err
+func (uc *SaveDocenteUseCase) Execute(docente *entities.Docente) error {
+	// Verifica que el correo sea válido
+	if err := docente.ValidarCorreo(); err != nil {
+		return err
 	}
-	return docente, nil
+
+	// Llama al repositorio si el correo es válido
+	return uc.Repository.Save(docente)
 }
+

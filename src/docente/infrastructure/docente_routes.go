@@ -24,5 +24,6 @@ func (router *DocenteRouter) Run() {
 		docenteGroup.PUT("/:id", updateController.Run)
 		docenteGroup.DELETE("/:id", deleteController.Run)
 		docenteGroup.GET("/", getAllController.Run)
+		
 	}
 }

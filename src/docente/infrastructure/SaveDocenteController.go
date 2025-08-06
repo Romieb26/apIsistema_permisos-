@@ -7,7 +7,6 @@ import (
 	"github.com/Romieb26/ApIsistema_permisos/src/docente/application"
 	"github.com/Romieb26/ApIsistema_permisos/src/docente/domain/entities"
 )
-
 type SaveDocenteController struct {
 	useCase *application.SaveDocenteUseCase
 }
@@ -24,7 +23,10 @@ func (ctrl *SaveDocenteController) Run(c *gin.Context) {
 	}
 
 	if err := c.ShouldBindJSON(&request); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"message": "Datos inválidos", "error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "Datos inválidos",
+			"error":   err.Error(),
+		})
 		return
 	}
 
@@ -32,7 +34,10 @@ func (ctrl *SaveDocenteController) Run(c *gin.Context) {
 
 	saved, err := ctrl.useCase.Run(docente)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"message": "Error al guardar", "error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "No se pudo guardar el docente",
+			"error":   err.Error(),
+		})
 		return
 	}
 
