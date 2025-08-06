@@ -12,8 +12,9 @@ func InitDocenteDependencies() (
 	*GetAllDocentesController,
 ) {
 	repo := NewMySQLDocenteRepository()
+	emailValidator := NewSimulatedEmailValidator()
 
-	saveUseCase := application.NewSaveDocenteUseCase(repo)
+	saveUseCase := application.NewSaveDocenteUseCase(repo, emailValidator)
 	getByIdUseCase := application.NewGetDocenteByIdUseCase(repo)
 	updateUseCase := application.NewUpdateDocenteUseCase(repo)
 	deleteUseCase := application.NewDeleteDocenteUseCase(repo)
