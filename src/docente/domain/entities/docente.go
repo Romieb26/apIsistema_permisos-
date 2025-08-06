@@ -14,9 +14,8 @@ type Docente struct {
 	Email    string `json:"email" gorm:"column:email;not null"`
 }
 
-// ValidarCorreo verifica si el correo es válido para un docente
 func (d *Docente) ValidarCorreo() error {
-	// Patrón básico para validar formato de email
+
 	pattern := `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`
 	matched, _ := regexp.MatchString(pattern, d.Email)
 	if !matched {
@@ -24,7 +23,7 @@ func (d *Docente) ValidarCorreo() error {
 		return errors.New("formato de email inválido")
 	}
 
-	// Simulación de verificación de dominio docente
+
 	if !strings.HasSuffix(d.Email, "@edu.pe") && !strings.HasSuffix(d.Email, "@educacion.pe") {
 		fmt.Printf("Validación fallida: El email %s no es un correo docente válido\n", d.Email)
 		return errors.New("el correo no pertenece a un dominio docente válido")
